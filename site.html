@@ -1,0 +1,108 @@
+<html>
+<head>
+    <title>Weather</title>
+</head>
+
+<body>
+    <script src="jquery-1.11.3.js"></script>
+    <script src="check_jQuery.js"></script>
+    <script src="weather_getter_scripts.js"></script>
+    <style>
+        #header_style {
+            background-color: #3399FF;
+            height: 6%;
+            text-align: center;
+            color: white;
+            font-size: 25px;
+            padding-top: 10px;
+        }
+
+        #big_temperature {
+            height: 20%;
+            width: 50%;
+            background-color: white;
+            margin-left: 3%;
+            text-align: left;
+            font-size: 100px;
+            align-content: center;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        .wrapper {
+            position: relative;
+            min-height: 100%;
+        }
+
+        .content {
+            padding-top: 40px;
+            padding-bottom: 90px;
+        }
+
+        .footer {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 6%;
+            background-color: #CCCCCC;
+        }
+
+        a {
+            text-decoration: none;
+            text-align: left;
+        }
+
+        .right_div {
+            display: block;
+            width: 50%;
+            float: right;
+        }
+
+        .left_div {
+            display: inline-block;
+            width: 47%;
+            margin-left: 3%;
+        }
+
+        .wrapperDiv {
+            width: 100%;
+        }
+    </style>
+
+    <header id="header_style">Weather</header>
+    <br />
+    <div id="info">
+        <div class="left_div" id="city_name"></div>
+        <div class="right_div" id="humidity"></div>
+
+        <div class="left_div" id="day"></div>
+        <div class="right_div" id="cloudness"></div>
+
+
+        <div class="left_div" id="weather_description"></div>
+        <div class="right_div" id="pressure"></div>
+    </div>
+
+    <br />
+    <br />
+    <div id="big_temperature"></div>
+
+    <br />
+    <p align="left" style="margin-left: 3%;">
+        <a href="javascript://" id="expandAndHide" style="background-color: transparent">Expand</a>
+    </p>
+    <!--size of big_temp-->
+    <script src="script.js"></script>
+    <footer class="footer"></footer>
+</body>
+<!--ee6d0a71d56765dc6feb50a7e2d00d8d-->
+</html>
