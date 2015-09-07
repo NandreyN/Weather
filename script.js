@@ -7,4 +7,6 @@ elem.onclick = function () {
     $('#cloudness').show('slow');
     $('#pressure').show('slow');
     $('#humidity').show('slow');
+    $('#expandAndHide').hide('fast');
 }
+get5Day();
