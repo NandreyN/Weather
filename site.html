@@ -99,7 +99,7 @@
     <br />
     <div>
         <div id="big_temperature" class="left_div"></div>
-        <div class="right_div" id="chart_div" style="height: 20%; width: 50%;"></div>
+        <div class="right_div" id="chart_div" style="height: 20%; width: 50%; float:right;"></div>
     </div>
     <script type="text/javascript" src="jsapi.js"></script>
     <script type="text/javascript">
@@ -117,17 +117,17 @@
         google.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-              ['Year', 'Sales', 'Expenses'],
-              ['2013', 1000, 400],
-              ['2014', 1170, 460],
-              ['2015', 660, 1120],
-              ['2016', 1030, 540]
+              ['Time', 'Temperature'],
+              ['11.00', 18],
+              ['14.00', 13],
+              ['17.00', 10],
+              ['20.00', 5]
             ]);
 
             var options = {
-                title: 'Company Performance',
-                hAxis: { title: 'Year', titleTextStyle: { color: '#333' } },
-                vAxis: { minValue: 0 }
+                title: 'Temperature',
+                vAxis: { title: '°C', titleTextStyle: { color: '#333' } },
+                hAxis: { minValue: 0 }
             };
 
             var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
