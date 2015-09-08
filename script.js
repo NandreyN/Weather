@@ -9,4 +9,4 @@ elem.onclick = function () {
     $('#humidity').show('slow');
     $('#expandAndHide').hide('fast');
 }
-get5Day();
+

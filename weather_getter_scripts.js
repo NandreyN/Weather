@@ -7,6 +7,8 @@ function fromKelvinToFarengeit(temperature) {
     return Math.round(temperature - 273);
 }
 
+
+
 function getStringDay() {
     var dayNumber = new Date().getDay();
     var weekdays = new Array(7);
@@ -19,7 +21,16 @@ function getStringDay() {
     weekdays[6] = "saturday";
     return weekdays[dayNumber];
 }
-
+function get5Day() {
+    var x = new XMLHttpRequest();
+    x.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=Minsk&mode=json", true);
+    x.onload = function () {
+        var object = JSON.parse(x.responseText);
+        var list = object['list'];
+        console.log(list);
+    }
+    x.send(null);
+}
 function getCurrentWeather() {
     var x = new XMLHttpRequest();
     x.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=Minsk", true);
@@ -30,7 +41,7 @@ function getCurrentWeather() {
         document.getElementById('city_name').textContent = object['name'];
         document.getElementById('weather_description').textContent = object['weather']['0'].description;
         document.getElementById('day').textContent = getStringDay();
-        document.getElementById('humidity').textContent = 'humidity: ' + object['main']['humidity'] +  ' %';
+        document.getElementById('humidity').textContent = 'humidity: ' + object['main']['humidity'] + ' %';
         document.getElementById('pressure').textContent = 'pressure: ' + object['main']['pressure'] + ' hPa';
         document.getElementById('cloudness').textContent = 'cloudness: ' + object['clouds']['all'] + ' %';
 
