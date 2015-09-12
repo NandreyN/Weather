@@ -43,7 +43,6 @@
             z-index: 9999;
         }
     </style>
-    <script src="jquery-2.1.4.js"></script>
     <div class="background-image" id="background_image"></div>
     <div class="content">
         <header>
@@ -64,18 +63,36 @@
                 </div><!-- /.container-fluid -->
             </nav>
         </header> <!--#f8f8f8-->
-        <div class="panel panel-default" style="width: 70%; height: 70%; background-color:#f8f8f8; margin-left: 15%; margin-top: 15%;">
+        <div id="panel" class="panel panel-info" style="display:none; width: 40%; height: 70%; background-color:#f8f8f8; margin-left: 30%; margin-top: 15%;">
             <div class="panel-heading">
-                <h3 class="panel-title">Current weather information</h3>
+                <h3 class="panel-title">Main weather information</h3>
             </div>
-            <div class="panel-body" style="">
 
+            <div class="panel-body" style="">
+                <div class="media">
+                    <div class="media-left">
+                            <img id="weather-picture" class="media-object" src="" alt="" />
+                    </div>
+
+                    <div class="media-body" id="weather-body">
+                        <h4 id="weather-heading" class="media-heading"></h4>
+                    </div>
+                </div>
             </div>
+
+            <div class="alert alert-success" role="alert" id="alert"></div>
+            <div class="alert alert-info" role="alert" id="info"></div>
+            <div class="alert alert-warning" role="alert" id="warning"></div>
+            <div class="alert alert-danger" role="alert" id="danger"></div>
         </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="jquery-2.1.4.js"></script>
+    <script src="check_jQuery.js"></script>
+    <script src="WeatherGetters.js"></script>
+    <script src="mainScript.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
