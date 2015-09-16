@@ -11,6 +11,13 @@ function getCurrentWeather() {
         console.log(object);
         //document.getElementById('weather-heading').innerText = "Weather in " + object['name'].toString() + ":";
         // weather.o.icon
+        var bimage = 'Background_Pictures/' + object['weather']['0'].icon + ".jpg"
+        var elemCollection = document.getElementsByClassName('background-image');
+        for (var i = 0; i < elemCollection.length; i++) {
+           // var url = "url('" + bimage + "')";
+            elemCollection[i].style.backgroundImage = "url('"+bimage+"')";
+        }
+
         document.getElementById('weather-picture').src = "Weather_Pictures/" + object['weather']['0'].icon + ".png";
         var weatherBody = document.getElementById('weather-body');
         weatherBody.innerText = fromKelvinToFarengeit(object['main']['temp']) + " °C\t\t";
