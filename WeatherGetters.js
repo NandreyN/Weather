@@ -33,6 +33,7 @@ function getCurrentWeather() {
         document.getElementById('weather-picture').src = "Weather_Pictures/" + object['weather']['0'].icon + ".png";
         document.getElementById('wdesc').innerText = object['weather'][0].description;
         document.getElementById('info').innerText = getAdditionalProps("main", { "Pressure": "\thPa", "Humidity": "\t%" });
+        // do not forget += operator while getting properties from another @block@
 
         $('#panel').show(1000);
     }
