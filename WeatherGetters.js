@@ -32,7 +32,10 @@ function getCurrentWeather() {
         buildWeatherBody();
         document.getElementById('weather-picture').src = "Weather_Pictures/" + object['weather']['0'].icon + ".png";
         document.getElementById('wdesc').innerText = object['weather'][0].description;
+
         document.getElementById('info').innerText = getAdditionalProps("main", { "Pressure": "\thPa", "Humidity": "\t%" });
+        document.getElementById('info').innerText += "Wind speed: " + object['wind']['speed'] + "\tm/s\n";
+        document.getElementById('info').innerText += "Cloudness: " + object['clouds']['all'] + "\t%\n";
         // do not forget += operator while getting properties from another @block@
 
         $('#panel').show(1000);
