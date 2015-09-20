@@ -41,11 +41,11 @@ function getCurrentWeather() {
 
             $('#panel').show(1000);
         }
-        var getBackgroundID = function () { }
+        var getBackgroundID = function () { alert(true);}
         var page = window.location.toString().toLowerCase();
         var funcsList = { "bootstrapsite": currentWeatherScenario, "forecast": getBackgroundID };
         for (name in funcsList)
-            if (page.indexOf(name) != 0)
+            if (page.indexOf(name) != -1)
             {
                 funcsList[name]();
                 return;
