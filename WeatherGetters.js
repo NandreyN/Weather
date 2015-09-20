@@ -9,13 +9,31 @@ function getCurrentWeather() {
     x.onload = function () {
         var object = JSON.parse(x.responseText);
         console.log(object);
-        var currentWeatherScenario = function () {
+
+        var getForecast = function ()
+        {
+            var req = new XMLHttpRequest();
+            req.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=Minsk", true);
+            req.onload = function () {
+                var forecast = JSON.parse(req.responseText);
+                console.log(forecast);
+            }
+            req.onerror = function () {
+                alert("error");
+            }
+            req.send(null);
+        }
+
+        var getBackgroundID = function () {
             var bimage = 'Background_Pictures/' + object['weather']['0'].icon + ".jpg"
             var elemCollection = document.getElementsByClassName('background-image');
             for (var i = 0; i < elemCollection.length; i++) {
                 elemCollection[i].style.backgroundImage = "url('" + bimage + "')";
             }
-
+            getForecast();
+        }
+        var currentWeatherScenario = function () {
+            getBackgroundID();
             var getAdditionalProps = function (mainBlock, propNames) { // block name and dictionary with props
                 var string = "";
                 for (prop in propNames)
@@ -41,12 +59,11 @@ function getCurrentWeather() {
 
             $('#panel').show(1000);
         }
-        var getBackgroundID = function () { alert(true);}
+
         var page = window.location.toString().toLowerCase();
         var funcsList = { "bootstrapsite": currentWeatherScenario, "forecast": getBackgroundID };
         for (name in funcsList)
-            if (page.indexOf(name) != -1)
-            {
+            if (page.indexOf(name) != -1) {
                 funcsList[name]();
                 return;
             }
