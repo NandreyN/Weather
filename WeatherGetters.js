@@ -48,8 +48,7 @@ function getWeather() {
         var funcsList = { "bootstrapsite": [currentWeatherScenario], "forecast": [getBackgroundID, getForecast] };
         for (name in funcsList)
             if (page.indexOf(name) != -1) {
-                for (var i = 0; i < funcsList[name].length;i++)
-                {
+                for (var i = 0; i < funcsList[name].length; i++) {
                     funcsList[name][i]();
                 }
             }
@@ -62,14 +61,41 @@ function getWeather() {
     x.send(null);
 }
 function getForecast() {
+    function devideForecast(forecastObject) {
+        var lst = [];
+        for (var i = 0; i < forecastObject["cnt"]; i += 8)
+            lst.push(forecastObject['list'][i]);
+        return lst;
+    }
+    function constructBlocks(list) {
+        function constructOneBlock(objectSample) {
+            var panel = $('<div/>', { class: "panel panel-default", style: "width:65%; height:50%; margin-left:17.5%; margin-top:5%;" }).appendTo($('.forecast-container'));
+            var panelBody = $('<div/>', { class: "panel-body" }).appendTo(panel);
+            var media = $('<div/>', { class: "media" }).appendTo(panelBody);
+
+            var mediaLeft = $('<div/>', { class: "media-left" }).appendTo(media);
+            var path = 'Weather_Pictures/' + objectSample["weather"][0].icon + ".png";
+            var img = $('<img/>', { class: "media-object", alt: "", src: path }).appendTo(mediaLeft);
+
+            var mediaBody = $('<div/>', { class: "media-body" }).appendTo(media);
+            var date = $('<h4/>', { class: "media-heading" }).html(objectSample["dt_txt"]).appendTo(mediaBody);
+            var description = $('<p/>').html("Description").appendTo(mediaBody);
+            
+        }
+        for (var i = 0; i < 3; i++)
+            constructOneBlock(list[i]);
+    }
     var req = new XMLHttpRequest();
     req.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=Minsk", true);
     req.onload = function () {
         var forecast = JSON.parse(req.responseText);
         console.log(forecast);
+        var list = devideForecast(forecast);
+        constructBlocks(list);
     }
     req.onerror = function () {
         alert("error");
     }
     req.send(null);
 }
+
