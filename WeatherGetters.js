@@ -67,14 +67,12 @@ function getForecast() {
             lst.push(forecastObject['list'][i]);
         return lst;
     }
-    function getDayName(day)
-    {
+    function getDayName(day) {
         return { '0': "Sunday", '1': "Monday", "2": 'Tuesday', '3': "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday" }[day];
     }
-    function transformDateTimeString(str)
-    {
+    function transformDateTimeString(str) {
         var d = new Date(str);
-        return d.getDate().toString() + "." + d.getMonth() + "." + d.getFullYear() + " ( " + getDayName(d.getDay().toString()) +" ) ";
+        return d.getDate().toString() + "." + d.getMonth() + "." + d.getFullYear() + " ( " + getDayName(d.getDay().toString()) + " ) ";
     }
 
     function constructBlocks(list) {
@@ -88,9 +86,15 @@ function getForecast() {
             var img = $('<img/>', { class: "media-object", alt: "", src: path }).appendTo(mediaLeft);
 
             var mediaBody = $('<div/>', { class: "media-body" }).appendTo(media);
-            var date = $('<h4/>', { class: "media-heading" }).html(transformDateTimeString(objectSample["dt_txt"])).appendTo(mediaBody);
-            var description = $('<p/>').html("Description").appendTo(mediaBody);
-            
+            var date = $('<h4/>', { class: "media-heading" }).html("\t " + "Date: " + transformDateTimeString(objectSample["dt_txt"])).appendTo(mediaBody);
+            var wName = objectSample["weather"][0].description;
+            var descStr = wName.charAt(0).toUpperCase() + wName.slice(1) + " ; " +
+                fromKelvinToFarengeit(objectSample["main"]["temp"]) + " °C ; " +
+                objectSample["main"]['pressure'] + " hPa ; " +
+                objectSample['main']['humidity'] + " % humidity ; " +
+                objectSample['clouds']['all'] + " % clouds ";
+            var description = $('<p/>').html(descStr).appendTo(mediaBody);
+
         }
         $(".forecast-container").hide();
         for (var i = 0; i < list.length; i++)

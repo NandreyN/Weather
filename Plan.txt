@@ -1,4 +1,4 @@
-- To add decription to the forecast item:
+- To add decription to the forecast item: (Done)
 	+ temperature
 	+ pressure
 	+ humidity
@@ -6,12 +6,23 @@
 - To make them smaller for bigger forecast or to add more data
 - To make 3 items for only 1 day: 6am, 13pm, 20pm
 - To make groups seprate from each other, 3 by 3
-- Too much free space from the right of the item
-- To connect WEATHER in header with main page of the website
+- Too much free space from the right of the item (Solved)
+- To connect WEATHER in header with main page of the website (Solved)
 - Is footer needed?
 - Find new photos in correct resolution
 - Add some buttons with some kind of functionality in header
 - To solve problem with scrolling Div block with forecast.
 	26.09.2015
-- Aniamtion on the forecast page?
-	27.09.2015
+
+- Animation on the forecast page?
+- Additional info on main page! Should add in future
+- Add about page with a button in header
+	+ some info about the website, openweathermap.org API should be mentioned
+- In perspective search by city algorithm should be realized:
+	+ add input form to input city`s name
+	+ putting value to XMLRequest
+	+ parse data
+	+ cache user`s city
+	+ restore to get data
+- To rewrite getter methods
+		27.09.2015
