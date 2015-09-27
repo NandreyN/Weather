@@ -48,8 +48,7 @@ function getWeather() {
         var funcsList = { "bootstrapsite": [currentWeatherScenario], "forecast": [getBackgroundID, getForecast] };
         for (name in funcsList)
             if (page.indexOf(name) != -1) {
-                for (var i = 0; i < funcsList[name].length;i++)
-                {
+                for (var i = 0; i < funcsList[name].length; i++) {
                     funcsList[name][i]();
                 }
             }
@@ -62,14 +61,58 @@ function getWeather() {
     x.send(null);
 }
 function getForecast() {
+    function devideForecast(forecastObject) {
+        var lst = [];
+        for (var i = 0; i < forecastObject["cnt"]; i += 8)
+            lst.push(forecastObject['list'][i]);
+        return lst;
+    }
+    function getDayName(day) {
+        return { '0': "Sunday", '1': "Monday", "2": 'Tuesday', '3': "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday" }[day];
+    }
+    function transformDateTimeString(str) {
+        var d = new Date(str);
+        return d.getDate().toString() + "." + d.getMonth() + "." + d.getFullYear() + " ( " + getDayName(d.getDay().toString()) + " ) ";
+    }
+
+    function constructBlocks(list) {
+        function constructOneBlock(objectSample) {
+            var panel = $('<div/>', { class: "panel panel-default", style: "width:40%; height:50%; margin-left:30%; margin-top:1%;" }).appendTo($('.forecast-container'));
+            var panelBody = $('<div/>', { class: "panel-body" }).appendTo(panel);
+            var media = $('<div/>', { class: "media" }).appendTo(panelBody);
+
+            var mediaLeft = $('<div/>', { class: "media-left" }).appendTo(media);
+            var path = 'Weather_Pictures/' + objectSample["weather"][0].icon + ".png";
+            var img = $('<img/>', { class: "media-object", alt: "", src: path }).appendTo(mediaLeft);
+
+            var mediaBody = $('<div/>', { class: "media-body" }).appendTo(media);
+            var date = $('<h4/>', { class: "media-heading" }).html("\t " + "Date: " + transformDateTimeString(objectSample["dt_txt"])).appendTo(mediaBody);
+            var wName = objectSample["weather"][0].description;
+            var descStr = wName.charAt(0).toUpperCase() + wName.slice(1) + " ; " +
+                fromKelvinToFarengeit(objectSample["main"]["temp"]) + " °C ; " +
+                objectSample["main"]['pressure'] + " hPa ; " +
+                objectSample['main']['humidity'] + " % humidity ; " +
+                objectSample['clouds']['all'] + " % clouds ";
+            var description = $('<p/>').html(descStr).appendTo(mediaBody);
+
+        }
+        $(".forecast-container").hide();
+        for (var i = 0; i < list.length; i++)
+            constructOneBlock(list[i]);
+        $(".forecast-container").show('slow');
+    }
+
     var req = new XMLHttpRequest();
     req.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=Minsk", true);
     req.onload = function () {
         var forecast = JSON.parse(req.responseText);
         console.log(forecast);
+        var list = devideForecast(forecast);
+        constructBlocks(list);
     }
     req.onerror = function () {
         alert("error");
     }
     req.send(null);
 }
+
