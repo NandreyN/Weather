@@ -67,9 +67,19 @@ function getForecast() {
             lst.push(forecastObject['list'][i]);
         return lst;
     }
+    function getDayName(day)
+    {
+        return { '0': "Sunday", '1': "Monday", "2": 'Tuesday', '3': "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday" }[day];
+    }
+    function transformDateTimeString(str)
+    {
+        var d = new Date(str);
+        return d.getDate().toString() + "." + d.getMonth() + "." + d.getFullYear() + " ( " + getDayName(d.getDay().toString()) +" ) ";
+    }
+
     function constructBlocks(list) {
         function constructOneBlock(objectSample) {
-            var panel = $('<div/>', { class: "panel panel-default", style: "width:65%; height:50%; margin-left:17.5%; margin-top:5%;" }).appendTo($('.forecast-container'));
+            var panel = $('<div/>', { class: "panel panel-default", style: "width:40%; height:50%; margin-left:30%; margin-top:1%;" }).appendTo($('.forecast-container'));
             var panelBody = $('<div/>', { class: "panel-body" }).appendTo(panel);
             var media = $('<div/>', { class: "media" }).appendTo(panelBody);
 
@@ -78,13 +88,16 @@ function getForecast() {
             var img = $('<img/>', { class: "media-object", alt: "", src: path }).appendTo(mediaLeft);
 
             var mediaBody = $('<div/>', { class: "media-body" }).appendTo(media);
-            var date = $('<h4/>', { class: "media-heading" }).html(objectSample["dt_txt"]).appendTo(mediaBody);
+            var date = $('<h4/>', { class: "media-heading" }).html(transformDateTimeString(objectSample["dt_txt"])).appendTo(mediaBody);
             var description = $('<p/>').html("Description").appendTo(mediaBody);
             
         }
-        for (var i = 0; i < 3; i++)
+        $(".forecast-container").hide();
+        for (var i = 0; i < list.length; i++)
             constructOneBlock(list[i]);
+        $(".forecast-container").show('slow');
     }
+
     var req = new XMLHttpRequest();
     req.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=Minsk", true);
     req.onload = function () {
