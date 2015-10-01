@@ -45,7 +45,7 @@ function getWeather(city) {
         }
 
         var page = window.location.toString().toLowerCase();
-        var funcsList = { "bootstrapsite": [currentWeatherScenario], "forecast": [getBackgroundID, getForecast], "about": [getBackgroundID] };
+        var funcsList = { "index": [currentWeatherScenario], "forecast": [getBackgroundID, getForecast], "about": [getBackgroundID] };
         for (name in funcsList)
             if (page.indexOf(name) != -1) {
                 for (var i = 0; i < funcsList[name].length; i++) {
