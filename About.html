@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>Weather</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
             right: 0;
             z-index: 1;
             display: block;
-            background-image: url('night.jpg');
+            background-image: none;
             background-size: cover;
             width: 100%;
             height: 100%;
@@ -41,9 +41,9 @@
             left: 0;
             right: 0;
             z-index: 9999;
+            height: auto;
         }
     </style>
-    <script src="jquery-2.1.4.js"></script>
     <div class="background-image" id="background_image"></div>
     <div class="content">
         <header>
@@ -51,31 +51,30 @@
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="#">Weather</a>
+                        <a class="navbar-brand" href="BootstrapSite.html">Weather</a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Current <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">Forecast</a></li>
+                            <li><a href="BootstrapSite.html">Current</a></li>
+                            <li><a href="Forecast.html">Forecast</a></li>
+                            <li class="active"><a href="About.html">About<span class="sr-only">(current)</span></a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
         </header> <!--#f8f8f8-->
-        <div class="panel panel-default" style="width: 70%; height: 70%; background-color:#f8f8f8; margin-left: 15%; margin-top: 15%;">
-            <div class="panel-heading">
-                <h3 class="panel-title">Current weather information</h3>
-            </div>
-            <div class="panel-body" style="">
-
-            </div>
-        </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="jquery-2.1.4.js"></script>
+    <script src="check_jQuery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="WeatherGetters.js"></script>
+    <script>
+        getWeather("Minsk");
+    </script>
 </body>
 </html>

@@ -2,10 +2,10 @@
     return Math.round(temperature - 273);
 }
 
-function getWeather() {
+function getWeather(city) {
     $('#panel').hide('fast');
     var x = new XMLHttpRequest();
-    x.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=Minsk", true);
+    x.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=" + city, true);
     x.onload = function () {
         var object = JSON.parse(x.responseText);
         console.log(object);
@@ -45,7 +45,7 @@ function getWeather() {
         }
 
         var page = window.location.toString().toLowerCase();
-        var funcsList = { "bootstrapsite": [currentWeatherScenario], "forecast": [getBackgroundID, getForecast] };
+        var funcsList = { "bootstrapsite": [currentWeatherScenario], "forecast": [getBackgroundID, getForecast], "about": [getBackgroundID] };
         for (name in funcsList)
             if (page.indexOf(name) != -1) {
                 for (var i = 0; i < funcsList[name].length; i++) {
@@ -94,12 +94,9 @@ function getForecast() {
                 objectSample['main']['humidity'] + " % humidity ; " +
                 objectSample['clouds']['all'] + " % clouds ";
             var description = $('<p/>').html(descStr).appendTo(mediaBody);
-
         }
-        $(".forecast-container").hide();
         for (var i = 0; i < list.length; i++)
             constructOneBlock(list[i]);
-        $(".forecast-container").show('slow');
     }
 
     var req = new XMLHttpRequest();
