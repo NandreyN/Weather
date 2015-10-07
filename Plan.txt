@@ -16,7 +16,7 @@
 
 - Animation on the forecast page? (Removed)
 - Additional info on main page! Should add in future
-- Add about page with a button in header
+- Add about page with a button in header (Added) 
 	+ some info about the website, openweathermap.org API should be mentioned
 - In perspective search by city algorithm should be realized:
 	+ add input form to input city`s name
@@ -26,5 +26,7 @@
 	+ restore to get data
 - To rewrite getter methods
 		27.09.2015
-- Location is the main task
+- Location is the main task (Solved)
 	01.10.2015
+- Added comments to WeatherGetters
+	07.10.2015

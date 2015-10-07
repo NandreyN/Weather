@@ -1,11 +1,25 @@
 ﻿function fromKelvinToFarengeit(temperature) {
     return Math.round(temperature - 273);
+    // Converting from Kelvin to Farengeit
 }
 
 function getWeather(city) {
     $('#panel').hide('fast');
+    // Hiding panel to add data 
     var x = new XMLHttpRequest();
-    x.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=" + city, true);
+    // Creating request
+    navigator.geolocation.getCurrentPosition(handleLocation);
+    // Getting location
+    var locationGot = false;
+    function handleLocation(location) {
+        x.open("GET", "http://api.openweathermap.org/data/2.5/weather?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude, true);
+        locationGot = true;
+        // Setting variable "True" to know if that function was called
+    }
+    // Try to get position with a callback
+    if (!locationGot)
+        x.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=" + city, true);
+    // If geoposition wasn`t downloaded, call open method with city name argument
     x.onload = function () {
         var object = JSON.parse(x.responseText);
         console.log(object);
@@ -57,8 +71,10 @@ function getWeather(city) {
         console.log("Error" + x.responseText)
         if (document.getElementById('panel') != null)
             $('#panel').show('slow');
+            // Show the panel
     }
     x.send(null);
+    // Sending request, all calbacks initialized
 }
 function getForecast() {
     function devideForecast(forecastObject) {
@@ -66,13 +82,18 @@ function getForecast() {
         for (var i = 0; i < forecastObject["cnt"]; i += 8)
             lst.push(forecastObject['list'][i]);
         return lst;
+        // Devinding forecast
+        // The forecast is given as a list of data every 3 hours, we need only 1 day timespan 
+        // 3 hours * 8 (iterator) = 24 h
     }
     function getDayName(day) {
         return { '0': "Sunday", '1': "Monday", "2": 'Tuesday', '3': "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday" }[day];
+        // Returns string represent of a day
     }
     function transformDateTimeString(str) {
         var d = new Date(str);
         return d.getDate().toString() + "." + d.getMonth() + "." + d.getFullYear() + " ( " + getDayName(d.getDay().toString()) + " ) ";
+        // Another look of a Date object after calling .toString()
     }
 
     function constructBlocks(list) {
@@ -95,17 +116,25 @@ function getForecast() {
                 objectSample['clouds']['all'] + " % clouds ";
             var description = $('<p/>').html(descStr).appendTo(mediaBody);
         }
+        // That function constructs one item for the forecast dynamicaly and adds it to the <div> block with defined identificator
+        // As in HTML, every block is added as a child into the parent
         for (var i = 0; i < list.length; i++)
             constructOneBlock(list[i]);
+        // Constructing required amount of blocks
     }
 
     var req = new XMLHttpRequest();
+    // Another XML Request, which one is for downloading forecast
     req.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=Minsk", true);
+    // Request params
     req.onload = function () {
         var forecast = JSON.parse(req.responseText);
+        // Parsing JSON responce into an object
         console.log(forecast);
+        // Logging
         var list = devideForecast(forecast);
         constructBlocks(list);
+        // Calling constructing blocks, code is above
     }
     req.onerror = function () {
         alert("error");
