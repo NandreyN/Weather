@@ -3,6 +3,7 @@
     // Converting from Kelvin to Farengeit
 }
 
+var ID = "&appid=" + "ee6d0a71d56765dc6feb50a7e2d00d8d";
 function getWeather(city) {
     $('#panel').hide('fast');
     // Hiding panel to add data 
@@ -12,13 +13,13 @@ function getWeather(city) {
     // Getting location
     var locationGot = false;
     function handleLocation(location) {
-        x.open("GET", "http://api.openweathermap.org/data/2.5/weather?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude, true);
+        x.open("GET", "http://api.openweathermap.org/data/2.5/weather?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude + ID, true);
         locationGot = true;
         // Setting variable "True" to know if that function was called
     }
     // Try to get position with a callback
     if (!locationGot)
-        x.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=" + city, true);
+        x.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=" + city + ID, true);
     // If geoposition wasn`t downloaded, call open method with city name argument
     x.onload = function () {
         var object = JSON.parse(x.responseText);
@@ -125,7 +126,7 @@ function getForecast() {
 
     var req = new XMLHttpRequest();
     // Another XML Request, which one is for downloading forecast
-    req.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=Minsk", true);
+    req.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=Minsk" + ID, true);
     // Request params
     req.onload = function () {
         var forecast = JSON.parse(req.responseText);
