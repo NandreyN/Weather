@@ -4,13 +4,12 @@
 }
 
 var ID = "&appid=" + "ee6d0a71d56765dc6feb50a7e2d00d8d";
-function getWeather(city) {
+function getWeather(city, useLocation) {
     $('#panel').hide('fast');
     // Hiding panel to add data 
     var x = new XMLHttpRequest();
     // Creating request
-    navigator.geolocation.getCurrentPosition(handleLocation);
-    // Getting location
+
     var locationGot = false;
     function handleLocation(location) {
         x.open("GET", "http://api.openweathermap.org/data/2.5/weather?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude + ID, true);
@@ -18,6 +17,10 @@ function getWeather(city) {
         // Setting variable "True" to know if that function was called
     }
     // Try to get position with a callback
+    if (useLocation)
+        navigator.geolocation.getCurrentPosition(handleLocation);
+    // Getting location
+
     if (!locationGot)
         x.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=" + city + ID, true);
     // If geoposition wasn`t downloaded, call open method with city name argument
@@ -33,6 +36,7 @@ function getWeather(city) {
         }
         var currentWeatherScenario = function () {
             getBackgroundID();
+            document.getElementById("city-input").placeholder = object['name'];
             var getAdditionalProps = function (mainBlock, propNames) { // block name and dictionary with props
                 var string = "";
                 for (prop in propNames)
@@ -72,7 +76,7 @@ function getWeather(city) {
         console.log("Error" + x.responseText)
         if (document.getElementById('panel') != null)
             $('#panel').show('slow');
-            // Show the panel
+        // Show the panel
     }
     x.send(null);
     // Sending request, all calbacks initialized

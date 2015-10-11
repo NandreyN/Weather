@@ -1,2 +1,7 @@
 // JavaScript source code
-getWeather("Minsk");
+document.body.onload = function () {
+    var name = document.getElementById('city-input').value;
+    if (name == "")
+        name = "Minsk";
+    getWeather(name, true);
+}
