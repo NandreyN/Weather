@@ -1,4 +1,4 @@
-﻿function fromKelvinToFarengeit(temperature) {
+﻿    function fromKelvinToFarengeit(temperature) {
     return Math.round(temperature - 273);
     // Converting from Kelvin to Farengeit
 }
@@ -37,6 +37,7 @@ function getWeather(city, useLocation) {
         var currentWeatherScenario = function () {
             getBackgroundID();
             document.getElementById("city-input").placeholder = object['name'];
+            document.getElementById("mainWeatherInfo").innerText = "Weather in " + object['name'];
             var getAdditionalProps = function (mainBlock, propNames) { // block name and dictionary with props
                 var string = "";
                 for (prop in propNames)
