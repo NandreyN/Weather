@@ -1,4 +1,4 @@
-﻿    function fromKelvinToFarengeit(temperature) {
+﻿function fromKelvinToFarengeit(temperature) {
     return Math.round(temperature - 273);
     // Converting from Kelvin to Farengeit
 }
@@ -69,7 +69,10 @@ function getWeather(city, useLocation) {
         for (name in funcsList)
             if (page.indexOf(name) != -1) {
                 for (var i = 0; i < funcsList[name].length; i++) {
-                    funcsList[name][i]();
+                    if (funcsList[name][i].toString().indexOf("forecast") != -1)
+                        getForecast(object['name']);
+                    else
+                        funcsList[name][i]();
                 }
             }
     }
@@ -82,7 +85,7 @@ function getWeather(city, useLocation) {
     x.send(null);
     // Sending request, all calbacks initialized
 }
-function getForecast() {
+function getForecast(city) {
     function devideForecast(forecastObject) {
         var lst = [];
         for (var i = 0; i < forecastObject["cnt"]; i += 8)
@@ -131,10 +134,12 @@ function getForecast() {
 
     var req = new XMLHttpRequest();
     // Another XML Request, which one is for downloading forecast
-    req.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=Minsk" + ID, true);
+    req.open("GET", "http://api.openweathermap.org/data/2.5/forecast?q=" + city + ID, true);
     // Request params
     req.onload = function () {
         var forecast = JSON.parse(req.responseText);
+        document.getElementById("city-inputF").placeholder = forecast['city']['name'];
+        $("#forecast_container").empty();
         // Parsing JSON responce into an object
         console.log(forecast);
         // Logging
