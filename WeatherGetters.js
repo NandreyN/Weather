@@ -12,7 +12,8 @@ function getWeather(city, useLocation) {
 
     var locationGot = false;
     function handleLocation(location) {
-        x.open("GET", "http://api.openweathermap.org/data/2.5/weather?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude + ID, true);
+        x.open("GET", "http://api.openweathermap.org/data/2.5/weather?lat=" + location.coords.latitude
+            + "&lon=" + location.coords.longitude + ID, true);
         locationGot = true;
         // Setting variable "True" to know if that function was called
     }
@@ -118,7 +119,7 @@ function getForecast(city) {
             var mediaBody = $('<div/>', { class: "media-body" }).appendTo(media);
             var date = $('<h4/>', { class: "media-heading" }).html(city + ", " + "\t " + "Date: " + transformDateTimeString(objectSample["dt_txt"])).appendTo(mediaBody);
             var wName = objectSample["weather"][0].description;
-            var descStr =wName.charAt(0).toUpperCase() + wName.slice(1) + " ; " +
+            var descStr = wName.charAt(0).toUpperCase() + wName.slice(1) + " ; " +
                 fromKelvinToFarengeit(objectSample["main"]["temp"]) + " °C ; " +
                 objectSample["main"]['pressure'] + " hPa ; " +
                 objectSample['main']['humidity'] + " % humidity ; " +
